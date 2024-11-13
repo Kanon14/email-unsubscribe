@@ -14,7 +14,7 @@ def connect_to_mail():
     mail.login(username, password)
     mail.select("inbox")
     return mail
-
+    
 def extract_link_from_html(html_content):
     soup = BeautifulSoup(html_content, "html.parser")
     links = [link["href"] for link in soup.find_all("a", href=True) if "unsubscribe" in link["href"].lower()]
@@ -59,11 +59,10 @@ def search_for_email():
 def save_link(links):
     with open("links.txt", "w") as f:
         f.write("\n".join(links))
-    
+
+# Search for unsubscribe links in emails and click them. Save the clicked links to a file. 
 links = search_for_email()
 for link in links:
     click_link(link)
     
 save_link(links)
-    
-    
